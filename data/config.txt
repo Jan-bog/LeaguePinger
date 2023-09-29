@@ -1,0 +1,9 @@
+VALID_KEYS: ['1', '2', '3', '4', '5']
+VALID_MODIFIERS: caps_lock
+
+# Valid keys are ones to use for champions. 1 will usually be the toplaner, 2 the jungler, 3 the mid, etc
+# Valid modifiers is the key that needs to be held down to activate
+# Values like F1, F2, F3, F4, F5 should work as well
+# Valid modifiers are caps_lock, tab, shift_l, ctrl_l, alt_l, etc
+# If in doubt, consult the documentation for pynput.keyboard
+# If parsing fails, this file will be remade for you
