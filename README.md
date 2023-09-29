@@ -11,3 +11,7 @@ A quick and dirty program that allows to "ping" (via chat messages) the status o
 # Usage
 
 When holding caps-lock (by default) and having the chat open, press 1, 2, 3, 4, or 5 to "ping" the alive status of the teammate corresponding to the number (toplaner is usually 1, jungle 2, midlaner 3, ADC 4, and support 5)
+
+# Is this allowed?
+
+Probably not. Use at your own discretion!
