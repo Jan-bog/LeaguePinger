@@ -1,10 +1,12 @@
 import requests
 
+from pynput import keyboard
 import keyboard as kb
 import time
 
 class TeamHandler:
     teamEnums = {}
+    timesToIgnore = 0
 
     def __init__(self):
         self.teamEnums = self.assembleEnums()
@@ -56,14 +58,25 @@ class TeamHandler:
             returnMsg = f'{ally["championName"]} - Alive.'
         return returnMsg
     
-    def autoGUISending(self, ID):
+    def autoGUISending(self, ID, VALID_KEYS_AS_CHARS):
+        if self.timesToIgnore > 0:
+            self.timesToIgnore -= 1
+            if self.timesToIgnore < 0:
+                self.timesToIgnore = 0
+                print("This should not have happened!")
+            return self.timesToIgnore
         msg = self.retrieveLiveStatus(ID)
+        timesToIgnore = 0
+        for c in msg:
+            if c in VALID_KEYS_AS_CHARS:
+                timesToIgnore += 1
         kb.send('backspace')
         kb.send('delete')
         kb.write(msg)
         kb.send('enter')
         time.sleep(0.001)
         kb.send('enter')
-
+        self.timesToIgnore += timesToIgnore
+        return timesToIgnore
 
 # force remove key from set that isn't modifier key upon guisending

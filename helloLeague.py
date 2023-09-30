@@ -7,9 +7,9 @@ import teamHandler
 
 VALID_KEYS = []
 VALID_MODIFIERS = []
+VALID_KEYS_AS_CHARS = []
 curPresses = set()
 
-isWriting = False
 teamEnums = {}
 
 enumz = {
@@ -23,18 +23,17 @@ enumz = {
 def loadKeysAndMods():
     global VALID_KEYS
     global VALID_MODIFIERS
+    global VALID_KEYS_AS_CHARS
     VALID_KEYS_temp, VALID_MODIFIERS_temp = configParser.verifyJsonIntegrity()
+    VALID_KEYS_AS_CHARS = VALID_KEYS_temp + VALID_MODIFIERS_temp
     VALID_KEYS = [keyboard.KeyCode.from_char(str(x)) for x in VALID_KEYS_temp]
     VALID_MODIFIERS = [enumz[VALID_MODIFIERS_temp[0]]]
 
 
 def on_press(key:keyboard.KeyCode):
     global curPresses
-    global isWriting
 
     print(key)
-    if isWriting:
-        return
 
     if key in VALID_MODIFIERS or key in VALID_KEYS:
         curPresses.add(key)
@@ -42,10 +41,8 @@ def on_press(key:keyboard.KeyCode):
     if key in VALID_KEYS and curPresses.intersection(VALID_MODIFIERS):
         try:
             print(curPresses)
-            isWriting = True
-            teamClass.autoGUISending(int(key.char)-1)
+            teamClass.autoGUISending(int(key.char)-1, VALID_KEYS_AS_CHARS)
             curPresses.remove(key)
-            isWriting = False
         except KeyError as e:
             print(e)
 
