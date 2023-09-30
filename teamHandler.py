@@ -64,3 +64,6 @@ class TeamHandler:
         kb.send('enter')
         time.sleep(0.001)
         kb.send('enter')
+
+
+# force remove key from set that isn't modifier key upon guisending

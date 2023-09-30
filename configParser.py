@@ -48,6 +48,9 @@ def verifyJsonIntegrity():
         return config
     
 def main():
+    b = createConfig()
+    a = parseConfig()
+    assert a == b
     verifyJsonIntegrity()
 
 if __name__ == '__main__':

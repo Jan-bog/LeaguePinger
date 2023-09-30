@@ -9,6 +9,7 @@ VALID_KEYS = []
 VALID_MODIFIERS = []
 curPresses = set()
 
+isWriting = False
 teamEnums = {}
 
 enumz = {
@@ -29,16 +30,22 @@ def loadKeysAndMods():
 
 def on_press(key:keyboard.KeyCode):
     global curPresses
+    global isWriting
 
     print(key)
+    if isWriting:
+        return
+
     if key in VALID_MODIFIERS or key in VALID_KEYS:
         curPresses.add(key)
 
     if key in VALID_KEYS and curPresses.intersection(VALID_MODIFIERS):
         try:
             print(curPresses)
+            isWriting = True
             teamClass.autoGUISending(int(key.char)-1)
             curPresses.remove(key)
+            isWriting = False
         except KeyError as e:
             print(e)
 
